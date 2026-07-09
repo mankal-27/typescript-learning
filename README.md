@@ -43,23 +43,7 @@ npm run preview   # optional: preview the production build locally
 
 The build output goes to `dist/`.
 
-## Push this to GitHub
 
-This folder is already a git repository with one commit on the `main`
-branch. To publish it:
-
-1. Create a new **empty** repository on GitHub (no README/license/
-   .gitignore — this project already has those). For example:
-   `https://github.com/new` → name it e.g. `ts-master`.
-2. In a terminal, `cd` into this project folder, then run:
-
-   ```bash
-   git remote add origin https://github.com/<your-username>/<your-repo>.git
-   git push -u origin main
-   ```
-
-   (Use the exact URL GitHub shows you after creating the repo — it may
-   differ slightly, e.g. if you chose SSH instead of HTTPS.)
 
 ## Publish with GitHub Pages (automatic)
 
