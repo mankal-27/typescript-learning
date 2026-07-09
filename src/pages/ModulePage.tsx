@@ -24,7 +24,7 @@ export default function ModulePage() {
   const done = progress.isComplete(mod.slug);
 
   return (
-    <div className="page-content module-page">
+    <div className="page-content module-page" key={mod.slug}>
       <div className="module-header">
         <span className={`module-card-icon level-${mod.level.toLowerCase()}`}>
           <ModuleIcon name={mod.icon} size={22} />
