@@ -43,25 +43,63 @@ npm run preview   # optional: preview the production build locally
 
 The build output goes to `dist/`.
 
+## Push this to GitHub
 
+This folder is already a git repository with commits on the `main` branch.
+To publish it:
 
-## Publish with GitHub Pages (automatic)
+1. Create a new **empty** repository on GitHub (no README/license/
+   .gitignore — this project already has those). For example:
+   `https://github.com/new` → name it e.g. `ts-master`.
+2. In a terminal, `cd` into this project folder, then run:
 
-A workflow is already included at `.github/workflows/deploy.yml`. Once you
-push to `main`:
+   ```bash
+   git remote add origin https://github.com/<your-username>/<your-repo>.git
+   git push -u origin main
+   ```
 
-1. On GitHub, go to your repo → **Settings → Pages**.
-2. Under **Build and deployment → Source**, choose **GitHub Actions**.
-3. Push a commit (or re-run the workflow from the **Actions** tab). The
-   workflow builds the site and deploys it automatically.
-4. Your site will be live at:
+   (Use the exact URL GitHub shows you after creating the repo — it may
+   differ slightly, e.g. if you chose SSH instead of HTTPS.)
+
+## Publish with GitHub Pages
+
+This project deploys via the **`gh-pages` branch method** — it builds the
+site locally and pushes the static output to a `gh-pages` branch, which
+GitHub Pages then serves. This avoids GitHub Actions entirely, so there's
+no workflow to misconfigure or fail.
+
+1. Make sure you've pushed to GitHub as above (you need a `origin` remote
+   and at least one push to `main` first).
+2. Install dependencies if you haven't already, then run:
+
+   ```bash
+   npm install
+   npm run deploy
+   ```
+
+   This builds the site and pushes `dist/` to a `gh-pages` branch on your
+   repo (creating it if needed), using the `gh-pages` npm package.
+3. On GitHub, go to your repo → **Settings → Pages**.
+4. Under **Build and deployment → Source**, choose **Deploy from a
+   branch**, then set **Branch** to `gh-pages` and folder to `/ (root)`,
+   then **Save**.
+5. After a minute or two, your site is live at:
    `https://<your-username>.github.io/<your-repo>/`
+
+To publish future changes, just run `npm run deploy` again any time after
+updating and committing your source changes.
 
 The Vite config uses a relative base path (`base: "./"`) and the app uses a
 hash router, so it works correctly at that GitHub Pages subpath with no
 further configuration needed.
 
-Every future push to `main` redeploys automatically.
+### If `npm run deploy` fails
+
+- **Permission denied / auth error**: make sure `git push` to `origin`
+  works normally first (i.e. your GitHub credentials/SSH key are set up in
+  that terminal). `gh-pages` pushes using the same git credentials.
+- **"remote: Repository not found"**: double check the `origin` remote URL
+  matches your actual GitHub repo (`git remote -v`).
 
 ## Tech notes
 
